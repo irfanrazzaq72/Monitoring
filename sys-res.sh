@@ -39,6 +39,9 @@ total_memory_mb=$(awk -v t=$total_memory 'BEGIN { printf("%.1f", t/1024) }')
 used_memory_mb=$(awk -v u=$used_memory 'BEGIN { printf("%.1f", u/1024) }')
 available_memory_mb=$(awk -v a=$available_memory 'BEGIN { printf("%.1f", a/1024) }')
 
+Print_header "Memory full limit"
+df -h  |awk '$5+0 > 80 {print$0 "Memory almost full"}'
+
 print_header "🧠 Memory Usage"
 printf "Total Memory    : ${YELLOW}%-10s MB${RESET}\n" "$total_memory_mb"
 printf "Used Memory     : ${YELLOW}%-10s MB${RESET} (%s%%)\n" "$used_memory_mb" "$used_memory_percent"
